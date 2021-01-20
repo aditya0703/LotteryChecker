@@ -21,43 +21,36 @@ public class Checker {
             {16, 24, 37, 43, 68, 8},
             {17, 51, 52, 64, 68, 8},
             {1, 25, 34, 59, 66, 7},
-            {7, 11, 22, 45, 51, 5}
+            {7, 11, 22, 45, 51, 6}
     };
 
-    static int winners[] = { 7, 11, 22, 45, 51, 6 };
+    static int winners[] = { 7, 11, 22, 45, 51, 24 };
 
     static int winningSet[] = new int[6];
     static boolean mega = false;
 
     public static void main( String[] args ) {
-        if(jackpot())
-            System.out.println("You won the jackpot!");
-        else if(count(5))  //all but mega
-            System.out.println("You won a $1,000,000!");
+        if(count(5))
+            if( mega )
+                System.out.println("\nYou won the jackpot!");
+            else
+                System.out.println("\nYou won a $1,000,000!");
         else if(count(4)) {
             if( mega ) //4 and mega
-                System.out.println("You won $10,000!");
+                System.out.println("\nYou won $10,000!");
             else //just 4
-                System.out.println("You won $500!");
+                System.out.println("\nYou won $500!");
         }
         else if(count(3)) {
             if (mega)
-                System.out.println("You won $200!");
+                System.out.println("\nYou won $200!");
             else
-                System.out.println("You won $10!");
+                System.out.println("\nYou won $10!");
         }
         else if(count(2) && mega )
-            System.out.println("You won $10!");
+            System.out.println("\nYou won $10!");
         oneEach();
 
-    }
-
-    public static boolean jackpot(){
-        for(int i = 0; i < tickets.length; i++) {
-            if(Arrays.equals(tickets[i], winners))
-                return true;
-        }
-        return false;
     }
 
     public static boolean count(int target) {
@@ -70,6 +63,8 @@ public class Checker {
             }
             if( count == target ) {
                 winningSet = tickets[i];
+                for(int a = 0; a < tickets[0].length; a++ )
+                    System.out.print(winningSet[a] + " ");
                 break;
             }
         }
@@ -83,11 +78,15 @@ public class Checker {
             for( int j = 0; j < tickets[0].length - 1; j++ ){
                 if( tickets[i][j] != winningSet[j] ) {
                     if( tickets[i][j] == winners[j] && tickets[i][5] == winners[5] ) {
-                        System.out.println("You won $4!");
+                        for(int a = 0; a < tickets[0].length; a++ )
+                            System.out.print(tickets[i][a] + " ");
+                        System.out.println("\nYou won $4!");
                         break;
                     }
                     else if( tickets[i][5] == winners[5] ) {
-                        System.out.println("You won $2!");
+                        for(int a = 0; a < tickets[0].length; a++ )
+                            System.out.print(tickets[i][a] + " ");
+                        System.out.println("\nYou won $2!");
                         break;
                     }
                 }
